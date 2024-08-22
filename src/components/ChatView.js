@@ -1,4 +1,3 @@
-// src/components/ChatView.js
 import React, { useState } from 'react';
 import { Box, Paper, TextField, IconButton, useTheme, useMediaQuery } from '@mui/material';
 import SendIcon from '@mui/icons-material/Send';
@@ -31,54 +30,46 @@ function ChatView() {
             display: 'flex',
             justifyContent: sent ? 'flex-end' : 'flex-start',
             marginBottom: 2,
+            position: 'relative',
+            '&::before': {
+                content: '""',
+                position: 'absolute',
+                bottom: 0,
+                [sent ? 'right' : 'left']: -6,
+                width: 12,
+                height: 12,
+                background: sent ? '#BBDEFB' : '#FFFFFF',
+                border: `2px solid ${sent ? '#64B5F6' : '#E0E0E0'}`,
+                borderTop: 'none',
+                borderRight: sent ? 'none' : '2px solid #E0E0E0',
+                borderLeft: sent ? '2px solid #64B5F6' : 'none',
+                transform: 'rotate(45deg)',
+                transformOrigin: 'center center',
+                zIndex: 0,
+            }
         }}>
-            <Box sx={{
-                position: 'relative',
-                maxWidth: { xs: '85%', sm: '70%' },
-                '&::before': {
-                    content: '""',
-                    position: 'absolute',
-                    bottom: 0,
-                    [sent ? 'right' : 'left']: -8,
-                    width: 20,
-                    height: 20,
-                    background: sent ? '#BBDEFB' : '#FFFFFF',
+            <Paper
+                elevation={3}
+                sx={{
+                    position: 'relative',
+                    bgcolor: sent ? '#BBDEFB' : '#FFFFFF',
+                    color: '#000000',
+                    borderColor: sent ? '#64B5F6' : '#E0E0E0',
+                    padding: theme.spacing(1.5, 2.5),
+                    paddingBottom: '15px',
+                    borderRadius: '20px',
                     border: `2px solid ${sent ? '#64B5F6' : '#E0E0E0'}`,
-                    borderTop: 'none',
-                    [sent ? 'borderLeft' : 'borderRight']: 'none',
-                    transform: sent ? 'skew(40deg)' : 'skew(-40deg)',
-                    transformOrigin: sent ? 'bottom left' : 'bottom right',
-                },
-                '&::after': {
-                    content: '""',
-                    position: 'absolute',
-                    bottom: 0,
-                    [sent ? 'right' : 'left']: 0,
-                    width: 10,
-                    height: 20,
-                    background: sent ? '#BBDEFB' : '#FFFFFF',
-                }
-            }}>
-                <Paper
-                    elevation={3}
-                    sx={{
-                        bgcolor: sent ? '#BBDEFB' : '#FFFFFF',
-                        color: '#000000',
-                        borderColor: sent ? '#64B5F6' : '#E0E0E0',
-                        padding: theme.spacing(1.5, 2.5),
-                        paddingBottom: '15px',
-                        borderRadius: '20px',
-                        border: `2px solid ${sent ? '#64B5F6' : '#E0E0E0'}`,
-                        boxShadow: '6px 6px 16px rgba(0,0,0,0.2) !important',
-                        fontFamily: '"Nunito", sans-serif',
-                        fontSize: { xs: '1.1rem', sm: '1.3rem' },
-                        lineHeight: 1.4,
-                        fontWeight: 600,
-                    }}
-                >
-                    {children}
-                </Paper>
-            </Box>
+                    boxShadow: '6px 6px 16px rgba(0,0,0,0.2) !important',
+                    fontFamily: '"Nunito", sans-serif',
+                    fontSize: { xs: '1.1rem', sm: '1.3rem' },
+                    lineHeight: 1.4,
+                    fontWeight: 600,
+                    maxWidth: { xs: '85%', sm: '70%' },
+                    zIndex: 1,
+                }}
+            >
+                {children}
+            </Paper>
         </Box>
     );
 
